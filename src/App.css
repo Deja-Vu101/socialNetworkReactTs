@@ -1,0 +1,431 @@
+/*Обнуление*/
+* {
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+
+*,
+*:before,
+*:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+:focus,
+:active {
+  outline: none;
+}
+
+a:focus,
+a:active {
+  outline: none;
+}
+
+nav,
+footer,
+header,
+aside {
+  display: block;
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  font-size: 100%;
+  line-height: 1;
+  font-size: 14px;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+input,
+button,
+textarea {
+  font-family: inherit;
+}
+
+input::-ms-clear {
+  display: none;
+}
+
+button {
+  cursor: pointer;
+}
+
+button::-moz-focus-inner {
+  padding: 0;
+  border: 0;
+}
+
+a,
+a:visited {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+ul li {
+  list-style: none;
+}
+
+img {
+  vertical-align: top;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: inherit;
+  font-weight: 400;
+}
+
+/*--------------------*/
+
+
+body {
+  font-family: sans-serif;
+}
+
+header {
+  background-color: rgb(44, 37, 119);
+}
+
+.logoApp {
+  width: 150px;
+  margin-left: 20px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.navWrapper {
+  width: 200px;
+}
+
+.nav-leftBar {
+  margin: 0 auto;
+  font-size: 26px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 70px 10px;
+  display: flex;
+  flex-direction: column;
+
+  max-width: 160px;
+  background-color: rgb(44, 37, 119);
+}
+
+.nav-leftBar a {
+  color: white;
+}
+
+.nav-leftBar-item {
+  padding: 0 10px;
+  margin-top: 30px;
+}
+
+.nav-leftBar a:last-child {
+  padding-top: 30px;
+}
+
+
+.friendsOnline {
+  width: 202px;
+  border: 1px solid purple;
+}
+
+.friendsOnline_cards {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.cardProfile {
+  font-size: 15px;
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+  width: 100px;
+  margin-bottom: 5px;
+}
+
+/*.cardProfile:last-child{
+  margin-right: 0px;
+}*/
+
+.cardProfile_image {
+  margin: 0 auto;
+  width: 45px;
+  border-radius: 50px;
+}
+
+.cardProfile_name {
+  word-wrap: break-word;
+}
+
+
+
+.wrapper-center-app {
+  display: flex;
+}
+
+.main-app {
+  width: 985px;
+  margin-top: 20px;
+}
+
+.img-main {
+  display: block;
+  margin: 0 auto;
+}
+
+.profile {
+  margin-left: 25px;
+  margin-bottom: 25px;
+}
+
+.my-user {
+  display: flex;
+  margin-top: 40px;
+}
+
+.profile-information {
+  display: flex;
+  flex-direction: column;
+  padding-top: 10px;
+}
+
+.profile-information p {
+  padding-top: 10px;
+}
+
+.profile-avatar {
+  width: 140px;
+  margin-right: 25px;
+}
+
+.profile-information p,
+h2 {
+  font-size: 24px;
+
+}
+
+.my-posts-textarea {
+  margin-top: 25px;
+  padding: 10px;
+  font-size: 19px;
+  border: 1px solid black;
+  resize: none
+}
+
+.profile-information h2 {
+  font-size: 28px;
+  text-decoration: underline;
+}
+
+.my-posts-button {
+  color: white;
+  position: absolute;
+  margin-left: 30px;
+  font-size: 20px;
+  padding: 10px 20px;
+  border-radius: 15px;
+  margin-top: 224px;
+  background-color: rgb(44, 37, 119);
+}
+
+.my-posts-wrapper {
+  margin-top: 35px;
+  position: relative;
+}
+
+.my-posts-wrapper h2 {
+  font-size: 28px;
+  text-decoration: underline;
+}
+
+.myposts-post h2 {
+  text-decoration: none;
+}
+
+
+.post-avatarUser {
+  width: 70px;
+  height: 70px;
+  background-image: url("https://abrakadabra.fun/uploads/posts/2022-01/1642881025_5-abrakadabra-fun-p-krutie-avatarki-na-standoff-40.jpg");
+  background-size: cover;
+  background-position: center;
+  border-radius: 30px;
+}
+
+.post-wrapper {
+  margin: 30px 0;
+  display: flex;
+}
+
+.post-bodyText {
+  margin-left: 15px;
+  width: 765px;
+}
+
+.post-userText {
+  padding-top: 10px;
+  font-size: 18px;
+}
+
+.nav-leftBar a.active {
+  font-weight: 600;
+  color: orange;
+}
+
+/* Section Messages */
+
+.dialogs {
+  display: flex;
+  column-gap: 150px;
+  margin-left: 25px;
+}
+
+.dialogs-items {
+  padding: 10px;
+}
+
+.dialog {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.dialogActive {
+  font-size: 20px;
+  color: orange;
+}
+
+.messages {
+  padding: 10px;
+}
+
+.areaText {
+  width: 100%;
+  margin-top: 15px;
+}
+
+.my-message {
+  margin: 0 auto;
+  width: 400px;
+  display: flex;
+
+}
+
+.my-message-textarea {
+  text-align: center;
+  padding: 10px;
+  font-size: 16px;
+  border: 2px solid gray;
+  border-radius: 30px;
+  resize: none
+}
+
+.btnSendMessage {
+  background-color: white;
+  margin-left: 10px;
+}
+
+.sendMessage {
+  width: 45px;
+}
+
+
+/* 
+Messages Page
+*/
+
+
+/* Section Users Page */
+
+.user_avatar_img {
+  width: 70px;
+  margin-bottom: 30px;
+  margin-top: 20px;
+  border-radius: 50px;
+}
+
+.wrapperAvatarAndBtn {
+  margin-right: 5px;
+  margin-left: 5px;
+  width: 100px;
+  max-height: 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.user-card {
+  width: 800px;
+  height: 150px;
+  display: flex;
+  justify-content: space-between;
+  border-radius: 20px;
+  border: 1.5px solid black;
+}
+
+.user {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.wrapperFullNameAndStatus {
+  width: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-left: 20px;
+}
+
+.user-card_location {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: 16px;
+}
+
+.fullName {
+  font-size: 22px;
+}
+
+.status {
+  font-size: 18px;
+}
+
+/*
+Users Page 
+*/
+
+.page {
+  font-size: 18px;
+  margin-right: 5px;
+  cursor: pointer;
+}
+
+.currentPage {
+  font-size: 22px;
+  font-weight: 600;
+  margin-right: 5px;
+  cursor: pointer;
+}
+
+.login {
+  color: white;
+  float: right;
+  font-size: 18px;
+}
