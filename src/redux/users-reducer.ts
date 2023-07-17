@@ -15,7 +15,6 @@ const TOGGLE_IS_FETCHING =
 let initialState = {
   users: [] as Array<UserType>,
   pageSize: 5 as number,
-  totalCount: 14 as number,
   currentPage: 1 as number,
   isFetching: false,
 };
@@ -85,20 +84,20 @@ type GetItemsType = {
   error: string | null;
 };
 
-export const getUsers = (
-  dispatch: Dispatch<ActionsType>,
-  currentPage: number
-) => {
-  dispatch(actions.toggleIsFetchingAC(true));
-  axios
-    .get<GetItemsType>(
-      `https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}`,
-      { withCredentials: true }
-    )
-    .then((response) => {
+export const fetchUsers = (currentPage: number) => {
+  return async (dispatch: Dispatch<ActionsType>) => {
+    try {
+      dispatch(actions.toggleIsFetchingAC(true));
+      const res = await axios.get<GetItemsType>(
+        `https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}`,
+        { withCredentials: true }
+      );
+      dispatch(actions.setUsersAC(res.data.items));
       dispatch(actions.toggleIsFetchingAC(false));
-      dispatch(actions.setUsersAC(response.data.items));
-    });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 };
 
 export default usersReducer;

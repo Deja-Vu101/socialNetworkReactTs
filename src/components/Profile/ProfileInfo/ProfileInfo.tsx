@@ -10,7 +10,7 @@ interface OwnPropsType {
 const ProfileInfo: React.FC<OwnPropsType> = ({
   profile: {
     fullName,
-    //contacts,
+    contacts,
     lookingForAJob,
     lookingForAJobDescription,
     userId,
@@ -18,18 +18,20 @@ const ProfileInfo: React.FC<OwnPropsType> = ({
     photos,
   },
 }) => {
+  //const contactsKeys = contacts ? Object.keys(contacts) : [];
+  //console.log(contactsKeys);
   return (
     <>
       <img
         className="img-main"
-        src={photos.large || (photos.small ? photos.small : NO_AVATAR)}
+        src={photos?.large || (photos?.small ? photos?.small : NO_AVATAR)}
         alt="wqwe"
       />
 
       <div className="my-user">
         <img
           className="img-main"
-          src={photos.large || (photos.small ? photos.small : NO_AVATAR)}
+          src={photos?.large || (photos?.small ? photos?.small : NO_AVATAR)}
           alt="wqwe"
         />
 
@@ -41,6 +43,15 @@ const ProfileInfo: React.FC<OwnPropsType> = ({
           ) : (
             <p>Job: not looking for a job</p>
           )}
+          <ul>
+            {contacts ? Object.keys(contacts).map((key) => {
+            const value = contacts[key];
+            return <li key={key}>{key}: {value ? value : 'link absent'}</li>;
+          })
+        : null
+        }
+          </ul>
+          
         </div>
       </div>
     </>

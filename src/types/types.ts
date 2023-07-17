@@ -1,4 +1,4 @@
-export type DialogType = {
+export interface DialogType {
   id: number;
   name: string;
 };
@@ -11,16 +11,19 @@ export type UsersType = {
   author: string;
   message: string;
 };
-export type ContactsType = {
-  github: string;
-  vk: string;
-  facebook: string;
-  instagram: string;
-  twitter: string;
-  website: string;
-  youtube: string;
-  mainLink: string;
+interface ContactsType{
+  [key: string]: string | undefined;
 };
+//export type ContactsType = {
+//  github: string;
+//  vk: string;
+//  facebook: string;
+//  instagram: string;
+//  twitter: string;
+//  website: string;
+//  youtube: string;
+//  mainLink: string;
+//};
 export type ProfileType = {
   userId: number;
   lookingForAJob: boolean;
@@ -49,4 +52,11 @@ export type AuthMeType = {
 		login: string
 	}
 	resultCode: 0 | 1
+}
+
+export interface IProfilePage{
+  users: UsersType[];
+  newPostText: string;
+  profile: ProfileType;
+  isFetching: boolean;
 }

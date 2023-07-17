@@ -4,11 +4,13 @@ import { InferActionsType } from "./redux-store";
 import { APP_NAME } from "./users-reducer";
 import { Dispatch } from "redux";
 
-
 const ADD_POST = `${APP_NAME}/profile-reducer/ADD_POST` as const;
-const UPDATE_NEW_POST_CHANGE = `${APP_NAME}/profile-reducer/UPDATE_NEW_POST_CHANGE` as const;
-const SET_USER_PROFILE = `${APP_NAME}/profile-reducer/SET_USER_PROFILE` as const;
-const TOGGLE_IS_FETCHING = `${APP_NAME}/profile-reducer/TOGGLE_IS_FETCHING` as const;
+const UPDATE_NEW_POST_CHANGE =
+  `${APP_NAME}/profile-reducer/UPDATE_NEW_POST_CHANGE` as const;
+const SET_USER_PROFILE =
+  `${APP_NAME}/profile-reducer/SET_USER_PROFILE` as const;
+const TOGGLE_IS_FETCHING =
+  `${APP_NAME}/profile-reducer/TOGGLE_IS_FETCHING` as const;
 
 let initialState = {
   users: [
@@ -40,14 +42,23 @@ let initialState = {
 
 type InitialStateType = typeof initialState;
 
-type ActionsType = InferActionsType<typeof actions>
+type ActionsType = InferActionsType<typeof actions>;
 
 export const actions = {
-  addPostActionCreator: (text: string) => ({type: ADD_POST, usersText: text}),
-  updateNewPostChangeActionCreator: (text: string) => ({type: UPDATE_NEW_POST_CHANGE, newText: text}),
-  toggleIsFetchingAC: (isFetching: boolean) => ({type: TOGGLE_IS_FETCHING, isFetching}),
-  setUserProfileAC: (profile: ProfileType) => ({ type: SET_USER_PROFILE, profile})
-}
+  addPostActionCreator: (text: string) => ({ type: ADD_POST, usersText: text }),
+  updateNewPostChangeActionCreator: (text: string) => ({
+    type: UPDATE_NEW_POST_CHANGE,
+    newText: text,
+  }),
+  toggleIsFetchingAC: (isFetching: boolean) => ({
+    type: TOGGLE_IS_FETCHING,
+    isFetching,
+  }),
+  setUserProfileAC: (profile: ProfileType) => ({
+    type: SET_USER_PROFILE,
+    profile,
+  }),
+};
 
 const profileReducer = (
   state = initialState,
@@ -86,30 +97,22 @@ const profileReducer = (
   }
 };
 
-
-
-
-export const myProfile = (dispatch: Dispatch<ActionsType>) => {
-  dispatch(actions.toggleIsFetchingAC(true));
-  axios
-    .get<ProfileType>(`https://social-network.samuraijs.com/api/1.0/profile/${2}`, {
-      withCredentials: true,
-    })
-    .then((response) => {
+export const fetchUserProfile = (id?: number) => {
+  return async (dispatch: Dispatch<ActionsType>) => {
+    try {
+      dispatch(actions.toggleIsFetchingAC(true));
+      const res = await axios.get<ProfileType>(
+        `https://social-network.samuraijs.com/api/1.0/profile/${id ? id : 2}`,
+        {
+          withCredentials: true,
+        }
+      );
+      dispatch(actions.setUserProfileAC(res.data));
       dispatch(actions.toggleIsFetchingAC(false));
-      dispatch(actions.setUserProfileAC(response.data));
-    });
-};
-
-
-export const userProfile = (dispatch: Dispatch<ActionsType>, id: number) => {
-  dispatch(actions.toggleIsFetchingAC(true));
-  axios
-    .get<ProfileType>(`https://social-network.samuraijs.com/api/1.0/profile/${id}`)
-    .then((response) => {
-      dispatch(actions.toggleIsFetchingAC(false));
-      dispatch(actions.setUserProfileAC(response.data));
-    });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 };
 
 export default profileReducer;
