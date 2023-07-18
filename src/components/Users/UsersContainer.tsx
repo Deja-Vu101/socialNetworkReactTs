@@ -1,4 +1,3 @@
-import { useDispatch, useSelector } from "react-redux";
 import { useTypedDispatch } from "../../hooks/useTypedDispatch/useTypedDispatch";
 import Users from "./Users";
 import { useEffect, useState } from "react";
@@ -6,22 +5,41 @@ import { useTypedSelector } from "../../hooks/useTypedSelector";
 import List from "../List";
 import { UserType } from "../../types/types";
 import Pagination from "../Pagination";
+import { useDebounce } from "../../hooks/useDebounce";
 
 const UsersContainer = () => {
-  const { fetchUsers } = useTypedDispatch();
+  const { fetchUsers, postUserFollow, postUserUnfollow, searchUser } =
+    useTypedDispatch();
   const { currentPage, isFetching, users } = useTypedSelector(
     (state) => state.usersPage
   );
   const length = users.length;
 
   const [page, setPage] = useState(currentPage);
+  const [inputValue, setInputValue] = useState("");
+  const debounceSearchQuery = useDebounce(inputValue, 800);
+
   const changePage = (page: number) => {
-    setPage(page)
+    setPage(page);
   };
 
   useEffect(() => {
     fetchUsers(page);
   }, [page]);
+
+  useEffect(() => {
+    if (inputValue.length !== 0) {
+      searchUser(debounceSearchQuery);
+    }
+  }, [debounceSearchQuery]);
+
+  const toggleFollowUnfollow = (id: number, action: string) => {
+    action === "FOLLOW" ? postUserFollow(id) : postUserUnfollow(id);
+  };
+
+  const onChangeSearchUser = (searchQuery: string) => {
+    setInputValue(searchQuery);
+  };
 
   return (
     <>
@@ -30,6 +48,15 @@ const UsersContainer = () => {
       ) : (
         <>
           <Pagination length={length} page={page} setPage={changePage} />
+
+          <input
+            style={{ border: "1px solid black" }}
+            type="text"
+            value={inputValue}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              onChangeSearchUser(e.target.value)
+            }
+          />
 
           <List
             items={users}
@@ -41,6 +68,7 @@ const UsersContainer = () => {
                 followed={users.followed}
                 name={users.name}
                 status={users.status}
+                toggleFollowUnfollow={toggleFollowUnfollow}
               />
             )}
           />
@@ -51,44 +79,3 @@ const UsersContainer = () => {
 };
 
 export default UsersContainer;
-
-//let mapStateToProps = (state: any): MapStateToPropsType => {
-//  return {
-//    users: state.usersPage.users,
-//    pageSize: state.usersPage.pageSize,
-//    totalCount: state.usersPage.totalCount,
-//    currentPage: state.usersPage.currentPage,
-//    isFetching: state.usersPage.isFetching,
-//    profile: state.profilePage.profile,
-//  };
-//};
-
-//type MapDispatchToProps = {
-//  follow: (usersId: number) => void;
-//  unFollow: (usersId: number) => void;
-//  setUsers: (users: Array<UserType>) => void;
-//  pageWalk: (page: number) => void;
-//  toggleIsFetching: (isFetching: boolean) => void;
-//};
-//let mapDispatchToProps = (dispatch: any): MapDispatchToProps => {
-//  return {
-//    follow: (usersId: number) => {
-//      dispatch(actions.followAC(usersId));
-//    },
-//    unFollow: (usersId: number) => {
-//      dispatch(actions.unFollowAC(usersId));
-//    },
-//    setUsers: (users: Array<UserType>) => {
-//      dispatch(actions.setUsersAC(users));
-//    },
-//    pageWalk: (page: number) => {
-//      dispatch(actions.pageWalkAC(page));
-//    },
-//    toggleIsFetching: (isFetching: boolean) => {
-//      dispatch(actions.toggleIsFetchingAC(isFetching));
-//    },
-//  };
-//};
-
-//let UsersContainer = connect(mapStateToProps, mapDispatchToProps)(Users);
-//export default UsersContainer;

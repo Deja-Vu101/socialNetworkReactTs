@@ -2,7 +2,6 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 //import FriendsOnline from "./FriendsOnline";
 
-
 const NavBar = (props) => {
   return (
     <div className="navWrapper">
@@ -22,15 +21,15 @@ const NavBar = (props) => {
         <div className="nav-leftBar-item">
           <NavLink to="/users">Users</NavLink>
         </div>
+        <div className="nav-leftBar-item">
+          <NavLink to="/friends">Friends</NavLink>
+        </div>
 
         <div className="nav-leftBar-item">
           <NavLink to="/setings">Settings</NavLink>
         </div>
       </nav>
-
-		{/*<FriendsOnline friendsOnline = {props.friendsOnline}/>*/}
-
-	 </div>
+    </div>
   );
 };
 
