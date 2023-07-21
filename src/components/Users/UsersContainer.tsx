@@ -6,6 +6,7 @@ import List from "../List";
 import { UserType } from "../../types/types";
 import Pagination from "../Pagination";
 import { useDebounce } from "../../hooks/useDebounce";
+import Input from "../Input";
 
 const UsersContainer = () => {
   const { fetchUsers, postUserFollow, postUserUnfollow, searchUser } =
@@ -43,21 +44,12 @@ const UsersContainer = () => {
 
   return (
     <>
+      <Pagination length={length} page={page} setPage={changePage} />
+      <Input inputValue={inputValue} onChangeSearchUser={onChangeSearchUser} />
       {isFetching ? (
         <h2>Loading...</h2>
       ) : (
         <>
-          <Pagination length={length} page={page} setPage={changePage} />
-
-          <input
-            style={{ border: "1px solid black" }}
-            type="text"
-            value={inputValue}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              onChangeSearchUser(e.target.value)
-            }
-          />
-
           <List
             items={users}
             renderItem={(users: UserType) => (

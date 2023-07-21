@@ -5,28 +5,32 @@ import List from "../List";
 import Friends from "./Friends";
 import { useEffect } from "react";
 
-interface OwnProps {
-}
+interface OwnProps {}
 
 const FriendsContainer: React.FC<OwnProps> = () => {
   const { fetchFriends } = useTypedDispatch();
-  const { isFetching, friends } = useTypedSelector((state) => state.usersPage);
+  const { isFetching, friends} = useTypedSelector((state) => state.usersPage);
 
   useEffect(() => {
     fetchFriends();
   }, []);
   return (
     <>
-      {isFetching ? (
+      {/*{friends.length !== 0 ?? <h2>List empty</h2> }*/}
+      {isFetching && friends.length !== 0 ? (
         <h2>Loading...</h2>
       ) : (
         <>
-          <List
-            items={friends}
-            renderItem={(friends: UserType) =>
-              friends.followed === true ? <Friends friends={friends} key={friends.id} /> : null
-            }
-          />
+          {friends.length !== 0 ? (
+            <List
+              items={friends}
+              renderItem={(friend: UserType) => (
+                <Friends friends={friend} key={friend.id} />
+              )}
+            />
+          ) : (
+            <h2>List empty</h2>
+          )}
         </>
       )}
     </>

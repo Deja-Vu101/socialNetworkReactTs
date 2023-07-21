@@ -1,5 +1,5 @@
 import "./App.css";
-import React from "react";
+import React, { useEffect } from "react";
 import Header from "./components/Header/HeaderContainer";
 import NavBar from "./components/NavBar/NavBar";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -10,15 +10,21 @@ import LoginPage from "./components/Login/LoginPage";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import { useTypedSelector } from "./hooks/useTypedSelector";
 import FriendsContainer from "./components/Friends/FriendsContainer";
+import { useTypedDispatch } from "./hooks/useTypedDispatch/useTypedDispatch";
 
 const App: React.FC = () => {
+  const { authMe } = useTypedDispatch();
   const { auth, dialogsPage, profilePage } = useTypedSelector((state) => state);
+
+  useEffect(() => {
+    authMe();
+  }, []);
 
   return (
     <BrowserRouter>
       <div className="wrapper">
         <div className="container">
-          <Header />
+          <Header isAuth={auth.isAuth} login={auth.login} />
 
           <div className="wrapper-center-app">
             <NavBar />

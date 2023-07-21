@@ -1,8 +1,6 @@
-import axios from "axios";
 import { ProfileType, UsersType } from "../types/types";
 import { InferActionsType } from "./redux-store";
 import { APP_NAME } from "./users-reducer";
-import { Dispatch } from "redux";
 
 const ADD_POST = `${APP_NAME}/profile-reducer/ADD_POST` as const;
 const UPDATE_NEW_POST_CHANGE =
@@ -42,9 +40,9 @@ let initialState = {
 
 type InitialStateType = typeof initialState;
 
-type ActionsType = InferActionsType<typeof actions>;
+export type ProfileActionTypes = InferActionsType<typeof actionsProfile>;
 
-export const actions = {
+export const actionsProfile = {
   addPostActionCreator: (text: string) => ({ type: ADD_POST, usersText: text }),
   updateNewPostChangeActionCreator: (text: string) => ({
     type: UPDATE_NEW_POST_CHANGE,
@@ -62,7 +60,7 @@ export const actions = {
 
 const profileReducer = (
   state = initialState,
-  action: ActionsType
+  action: ProfileActionTypes
 ): InitialStateType => {
   switch (action.type) {
     case ADD_POST: {
@@ -95,24 +93,6 @@ const profileReducer = (
       return state;
     }
   }
-};
-
-export const fetchUserProfile = (id?: number) => {
-  return async (dispatch: Dispatch<ActionsType>) => {
-    try {
-      dispatch(actions.toggleIsFetchingAC(true));
-      const res = await axios.get<ProfileType>(
-        `https://social-network.samuraijs.com/api/1.0/profile/${id ? id : 2}`,
-        {
-          withCredentials: true,
-        }
-      );
-      dispatch(actions.setUserProfileAC(res.data));
-      dispatch(actions.toggleIsFetchingAC(false));
-    } catch (error) {
-      console.log(error);
-    }
-  };
 };
 
 export default profileReducer;
