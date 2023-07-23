@@ -2,36 +2,61 @@ import Dialogs from "./Dialogs";
 import { DialogsPageType, actions } from "../../redux/dialogs-reducer";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import List from "../List";
+import DialogsWS from "./DialogsWS";
+
+
 
 interface OwnPropsType {
   dialogsPage: DialogsPageType;
 }
 
 const DialogsContainer: React.FC<OwnPropsType> = ({ dialogsPage }) => {
-  const dispatch = useDispatch();
-  const [textareaValue, setTextareaValue] = useState(
-    dialogsPage.newMessageText
-  );
+  //const dispatch = useDispatch();
+  //const [textareaValue, setTextareaValue] = useState(
+  //  dialogsPage.newMessageText
+  //);
 
-  useEffect(() => {
-    setTextareaValue(dialogsPage.newMessageText);
-  }, [dialogsPage.newMessageText]);
+  //useEffect(() => {
+  //  setTextareaValue(dialogsPage.newMessageText);
+  //}, [dialogsPage.newMessageText]);
 
-  const onMessageChange = (text: string) => {
-    setTextareaValue(text);
-    dispatch(actions.updateNewMessageChangeAC(text));
-  };
-  const onAddMessage = () => {
-    dispatch(actions.addMessageAC(textareaValue));
-  };
+  //const onMessageChange = (text: string) => {
+  //  setTextareaValue(text);
+  //  dispatch(actions.updateNewMessageChangeAC(text));
+  //};
+  //const onAddMessage = () => {
+  //  dispatch(actions.addMessageAC(textareaValue));
+  //};
+
+  //const ws = 'wss://social-network.samuraijs.com/handlers/ChatHandler.ashx'
+  
+ 
+  //useEffect(() =>{
+  //  ws.addEventListener('message', (e) =>{
+  //    //setMessage(JSON.parse(e.data))
+  //    console.log(e, 'data');
+      
+  //  })
+  //}, [])
+  //const dialogs = [1]
   return (
     <>
-      <Dialogs
+    {/*<List 
+    items={dialogs}
+    renderItem={(dialogs) => <DialogsWS   />}
+    />*/}
+    {/*{dialogs.map(d => <DialogsWS   /> )}*/}
+    <div style={{height: '500px', overflow: 'scroll'}}>
+       <DialogsWS />
+    </div>
+   
+      {/*<Dialogs
         dialogsPage={dialogsPage}
         onMessageChange={onMessageChange}
         textareaValue={textareaValue}
         onAddMessage={onAddMessage}
-      />
+      />*/}
     </>
   );
 };

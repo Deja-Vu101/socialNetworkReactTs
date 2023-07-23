@@ -60,3 +60,11 @@ export interface IProfilePage{
   profile: ProfileType;
   isFetching: boolean;
 }
+
+//
+export type ChatMessageType = {
+  message: string,
+  photo: string,
+  userId: number,
+  userName: string,
+}

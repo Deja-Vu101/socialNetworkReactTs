@@ -1,12 +1,13 @@
-import React from "react";
+import React, {useEffect} from "react";
 import sendMessage from "../../img/sendMessage.png";
 import DialogsItem from "./DialogsItemAndMessage/DialogsItem";
 import { Navigate } from "react-router-dom";
-import { InitialAuthStateType } from "../../redux/auth-reducer";
 import List from "../List";
 import { DialogType, MessageType } from "../../types/types";
 import { DialogsPageType } from "../../redux/dialogs-reducer";
 import MessageItem from "./DialogsItemAndMessage/MessageItem";
+
+
 
 export type OwnPropsType = {
   dialogsPage: DialogsPageType;
@@ -45,6 +46,8 @@ const Dialogs: React.FC<OwnPropsType> = ({
 
   //    props.messageChange(text);
   //  }
+
+ 
 
   return (
     <>
